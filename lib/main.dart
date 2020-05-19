@@ -9,7 +9,6 @@ class ExpensesApp extends StatelessWidget {
   }
 }
 
-
 class MyHomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -17,8 +16,20 @@ class MyHomePage extends StatelessWidget {
       appBar: AppBar(
         title: Text("Despesas Pessoais"),
       ),
-      body: Center(
-        child: Text('Versão Inicial'),
+      body: Column(
+        children: <Widget>[
+          Container(
+            width: double.infinity,
+            child: Card(
+              color: Colors.blue,
+              child: Text('Gráfico'),
+              elevation: 5,
+            ),
+          ),
+          Card(
+            child: Text('Lista de Transações'),
+          )
+        ],
       ),
     );
   }
