@@ -4,11 +4,24 @@ import 'package:flutter_expenses/models/transaction.dart';
 class TransactionForm extends StatelessWidget {
 
   final titleController = TextEditingController();
-  final valuecontroller = TextEditingController();
+  final valueController = TextEditingController();
 
   final void Function(String, double) onSubmit;
 
   TransactionForm(this.onSubmit);
+
+  _submitForm(){
+    final title = titleController.text;
+    final value = double.tryParse(valueController.text) ?? 0.0;
+
+    if(title.isEmpty || value <= 0){
+      print('return');
+      return;
+    }//if
+
+    onSubmit(title, value);
+
+  }//_submitForm
 
   @override
   Widget build(BuildContext context) {
@@ -20,12 +33,15 @@ class TransactionForm extends StatelessWidget {
                 children: <Widget>[
                   TextField(
                     controller: titleController,
+                    onSubmitted: (_) => _submitForm(),
                     decoration: InputDecoration(
                       labelText: 'Título',
                     ),
                   ),
                   TextField(
-                    controller: valuecontroller,
+                    controller: valueController,
+                    keyboardType: TextInputType.numberWithOptions(decimal:true),
+                    onSubmitted: (_) => _submitForm(),
                     decoration: InputDecoration(
                       labelText: 'Valor (R\$)',
                     ),
@@ -36,11 +52,7 @@ class TransactionForm extends StatelessWidget {
                       FlatButton(
                         child: Text('Nova transação'),
                         textColor: Colors.purple,
-                        onPressed: () {
-                          final title = titleController.text;
-                          final value = double.tryParse(valuecontroller.text) ?? 0.0;
-                          onSubmit(title, value);
-                        },
+                        onPressed: _submitForm,
                       ),
                     ],
                   ),
