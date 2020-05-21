@@ -38,13 +38,7 @@ class _MyHomePageState extends State<MyHomePage> {
     ),
   ];
 
-    _openTransactionFormModal(BuildContext context) {
-    showModalBottomSheet(
-        context: context,
-        builder: (_) {
-          return TransactionForm(null);
-        });
-  } //_openTransactionFormModal
+
 
   
 
@@ -59,7 +53,20 @@ class _MyHomePageState extends State<MyHomePage> {
     setState(() {
       _transactions.add(newTransaction);
     });
+
+    Navigator.of(context).pop();
+
   } //_addTransaction
+
+      _openTransactionFormModal(BuildContext context) {
+    showModalBottomSheet(
+        context: context,
+        builder: (_) {
+          return TransactionForm(_addTransaction);
+        });
+  } //_openTransactionFormModal
+
+
 
   @override
   Widget build(BuildContext context) {
