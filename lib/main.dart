@@ -18,21 +18,22 @@ class ExpensesApp extends StatelessWidget {
         accentColor: Colors.red,
         fontFamily: 'QuickSand',
         textTheme: ThemeData.light().textTheme.copyWith(
-          title: TextStyle(
-            fontFamily: 'OpenSans',
-            fontSize: 18,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
+              title: TextStyle(
+                fontFamily: 'OpenSans',
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
         appBarTheme: AppBarTheme(
           textTheme: ThemeData.light().textTheme.copyWith(
-            headline6: TextStyle( //'title' is deprecated and shouldn't be used. (...). The modern term is headline6.
-              fontFamily: 'OpenSans',
-              fontSize: 20,
-              fontWeight: FontWeight.bold,
-              color: Colors.white,
-            ),
-          ),
+                headline6: TextStyle(
+                  //'title' is deprecated and shouldn't be used. (...). The modern term is headline6.
+                  fontFamily: 'OpenSans',
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white,
+                ),
+              ),
         ),
       ),
     );
@@ -45,14 +46,15 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  final List<Transaction>_transactions = [
-  /*final _transactions = [*/
+  final List<Transaction> _transactions = [
+    /*final _transactions = [*/
     Transaction(
       id: 't0',
       title: 'Conta antiga',
       value: 400.00,
       date: DateTime.now().subtract(Duration(days: 33)),
-    ),Transaction(
+    ),
+    Transaction(
       id: 't1',
       title: 'Novo Tênis de Corrida',
       value: 310.70,
@@ -64,15 +66,27 @@ class _MyHomePageState extends State<MyHomePage> {
       value: 211.30,
       date: DateTime.now().subtract(Duration(days: 4)),
     ),
+    Transaction(
+      id: 't3',
+      title: 'Cartão de Credito',
+      value: 15000.78,
+      date: DateTime.now(),
+    ),
+    Transaction(
+      id: 't4',
+      title: 'Lanche',
+      value: 15.00,
+      date: DateTime.now(),
+    ),
   ];
 
-  List<Transaction> get _recentTransactions{
+  List<Transaction> get _recentTransactions {
     return _transactions.where((tr) {
       return tr.date.isAfter(DateTime.now().subtract(
-        Duration(days:7),
+        Duration(days: 7),
       ));
     }).toList();
-  }//_recentTransactions
+  } //_recentTransactions
 
   _addTransaction(String title, double value) {
     final newTransaction = Transaction(
@@ -113,9 +127,7 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
-            
             Chart(_recentTransactions),
-            
             TransactionList(_transactions),
           ],
         ),
