@@ -106,8 +106,7 @@ class _MyHomePageState extends State<MyHomePage> {
     });
 
     Navigator.of(context).pop();
-    //print("DateTime.now().toString()");
-    print('newTransaction: ${newTransaction.id}');
+    //print('newTransaction: ${newTransaction.id}');
   } //_addTransaction
 
   _removeTransaction(String id) {
