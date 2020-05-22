@@ -51,7 +51,7 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   final List<Transaction> _transactions = [
-    /*final _transactions = [
+    /*final _transactions = [*/
     Transaction(
       id: 't0',
       title: 'Conta antiga',
@@ -81,7 +81,7 @@ class _MyHomePageState extends State<MyHomePage> {
       title: 'Lanche',
       value: 15.00,
       date: DateTime.now(),
-    ),*/
+    ),
   ];
 
   List<Transaction> get _recentTransactions {
@@ -92,12 +92,12 @@ class _MyHomePageState extends State<MyHomePage> {
     }).toList();
   } //_recentTransactions
 
-  _addTransaction(String title, double value, DateTime date) {
+  _addTransaction(String title, double value) {
     final newTransaction = Transaction(
       id: Random().nextDouble.toString(),
       title: title,
       value: value,
-      date: date,
+      date: DateTime.now(),
     );
 
     setState(() {
@@ -106,12 +106,6 @@ class _MyHomePageState extends State<MyHomePage> {
 
     Navigator.of(context).pop();
   } //_addTransaction
-
-  _removeTransaction(String id){
-    setState(() {
-      _transactions.removeWhere((tr) => tr.id == id);
-    });
-  }//_removeTransaction
 
   _openTransactionFormModal(BuildContext context) {
     showModalBottomSheet(
@@ -138,7 +132,7 @@ class _MyHomePageState extends State<MyHomePage> {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
             Chart(_recentTransactions),
-            TransactionList(_transactions, _removeTransaction),
+            TransactionList(_transactions),
           ],
         ),
       ),
