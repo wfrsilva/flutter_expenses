@@ -50,6 +50,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+    
   final List<Transaction> _transactions = [
     /*final _transactions = [*/
     Transaction(
@@ -73,15 +74,45 @@ class _MyHomePageState extends State<MyHomePage> {
     Transaction(
       id: 't3',
       title: 'Cartão de Credito',
-      value: 15000.78,
-      date: DateTime.now(),
+      value: 150.78,
+      date: DateTime.now().subtract(Duration(days: 5)),
     ),
     Transaction(
       id: 't4',
       title: 'Lanche',
       value: 15.00,
-      date: DateTime.now(),
-    ), //*/
+      date: DateTime.now().subtract(Duration(days: 6)),
+    ), 
+    Transaction(
+      id: 't5',
+      title: 'T05',
+      value: 200.00,
+      date: DateTime.now().subtract(Duration(days: 7)),
+    ), 
+    Transaction(
+      id: 't6',
+      title: 'T06',
+      value: 125.00,
+      date: DateTime.now().subtract(Duration(days: 6)),
+    ), 
+    Transaction(
+      id: 't7',
+      title: 'T07',
+      value: 75.75,
+      date: DateTime.now().subtract(Duration(days: 3)),
+    ), 
+    Transaction(
+      id: 't8',
+      title: 'T08',
+      value: 45.45,
+      date: DateTime.now().subtract(Duration(days: 2)),
+    ), 
+    Transaction(
+      id: 't9',
+      title: 'T09',
+      value: 150.30,
+      date: DateTime.now().subtract(Duration(days: 1)),
+    ), //*/ 
   ];
 
   List<Transaction> get _recentTransactions {
@@ -125,8 +156,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
+    final appBar = AppBar(
         title: Text('Despesas Pessoais'),
         actions: <Widget>[
           IconButton(
@@ -134,13 +164,23 @@ class _MyHomePageState extends State<MyHomePage> {
             onPressed: () => _openTransactionFormModal(context),
           ),
         ],
-      ),
+      );
+    final avaliableHeight = MediaQuery.of(context).size.height - appBar.preferredSize.height - MediaQuery.of(context).padding.top;
+
+    return Scaffold(
+      appBar: appBar,
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
-            Chart(_recentTransactions),
-            TransactionList(_transactions, _removeTransaction),
+            Container(
+              height: avaliableHeight * 0.3,
+              child: Chart(_recentTransactions),
+            ),
+            Container(
+              height: avaliableHeight * 0.70,
+              child: TransactionList(_transactions, _removeTransaction),
+            ),
           ],
         ),
       ),
