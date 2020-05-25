@@ -178,7 +178,7 @@ class _MyHomePageState extends State<MyHomePage> {
               child: Chart(_recentTransactions),
             ),
             Container(
-              height: avaliableHeight * 0.70,
+              height: avaliableHeight * 0.7,
               child: TransactionList(_transactions, _removeTransaction),
             ),
           ],
