@@ -50,7 +50,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-    
+  bool _showChart = false;
   final List<Transaction> _transactions = [
     /*final _transactions = [*/
     Transaction(
@@ -82,37 +82,37 @@ class _MyHomePageState extends State<MyHomePage> {
       title: 'Lanche',
       value: 15.00,
       date: DateTime.now().subtract(Duration(days: 6)),
-    ), 
+    ),
     Transaction(
       id: 't5',
       title: 'T05',
       value: 200.00,
       date: DateTime.now().subtract(Duration(days: 7)),
-    ), 
+    ),
     Transaction(
       id: 't6',
       title: 'T06',
       value: 125.00,
       date: DateTime.now().subtract(Duration(days: 6)),
-    ), 
+    ),
     Transaction(
       id: 't7',
       title: 'T07',
       value: 75.75,
       date: DateTime.now().subtract(Duration(days: 3)),
-    ), 
+    ),
     Transaction(
       id: 't8',
       title: 'T08',
       value: 45.45,
       date: DateTime.now().subtract(Duration(days: 2)),
-    ), 
+    ),
     Transaction(
       id: 't9',
       title: 'T09',
       value: 150.30,
       date: DateTime.now().subtract(Duration(days: 1)),
-    ), //*/ 
+    ), //*/
   ];
 
   List<Transaction> get _recentTransactions {
@@ -157,15 +157,17 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     final appBar = AppBar(
-        title: Text('Despesas Pessoais'),
-        actions: <Widget>[
-          IconButton(
-            icon: Icon(Icons.add),
-            onPressed: () => _openTransactionFormModal(context),
-          ),
-        ],
-      );
-    final avaliableHeight = MediaQuery.of(context).size.height - appBar.preferredSize.height - MediaQuery.of(context).padding.top;
+      title: Text('Despesas Pessoais'),
+      actions: <Widget>[
+        IconButton(
+          icon: Icon(Icons.add),
+          onPressed: () => _openTransactionFormModal(context),
+        ),
+      ],
+    );
+    final avaliableHeight = MediaQuery.of(context).size.height -
+        appBar.preferredSize.height -
+        MediaQuery.of(context).padding.top;
 
     return Scaffold(
       appBar: appBar,
@@ -173,14 +175,30 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
-            Container(
-              height: avaliableHeight * 0.3,
-              child: Chart(_recentTransactions),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Text('Exiir gráfico'),
+                Switch(
+                  value: _showChart,
+                  onChanged: (value) {
+                    setState(() {
+                      _showChart = value;
+                    });
+                  },
+                )
+              ],
             ),
-            Container(
-              height: avaliableHeight * 0.7,
-              child: TransactionList(_transactions, _removeTransaction),
-            ),
+            if (_showChart)
+              Container(
+                height: avaliableHeight * 0.3,
+                child: Chart(_recentTransactions),
+              ),
+            if (!_showChart)
+              Container(
+                height: avaliableHeight * 0.7,
+                child: TransactionList(_transactions, _removeTransaction),
+              ),
           ],
         ),
       ),
